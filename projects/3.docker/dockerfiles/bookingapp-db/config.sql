@@ -1,0 +1,1 @@
+CREATE DATABASE bookingapp_testing;

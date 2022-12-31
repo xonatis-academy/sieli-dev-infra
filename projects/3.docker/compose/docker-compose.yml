@@ -1,0 +1,35 @@
+version: '3'
+services:
+  bookingapp-frontend:
+    image: 'bookingapp-frontend'
+    ports:
+      - '80:80'
+    volumes:
+      - '/home/certif/bookingapp/volumes/frontend:/var/www/html'
+  bookingapp-db:
+    image: 'bookingapp-db'
+    environment:
+      MYSQL_ROOT_PASSWORD: 'toor'
+      MYSQL_DATABASE: 'bookingapp'
+    volumes:
+      - '/home/certif/bookingapp/volumes/mysql:/var/lib/mysql'
+    ports:
+      - '3306:3306'
+  bookingapp-backend:
+    image: 'bookingapp-backend'
+    ports:
+      - '81:80'
+    volumes:
+      - '/home/certif/bookingapp/volumes/backend:/var/www/html'
+    depends_on:
+      - bookingapp-db
+
+
+  phpmyadmin:
+    image: 'phpmyadmin/phpmyadmin'
+    environment: 
+      MYSQL_ROOT_PASSWORD: 'toor'
+      PMA_HOST: 'bookingapp-db'
+    ports:
+      - '83:80'
+
